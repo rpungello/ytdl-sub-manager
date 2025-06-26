@@ -20,8 +20,7 @@
 
         @foreach($subscriptions as $key => $subscription)
             <x-form wire:submit.prevent="save">
-                <x-card :title="$key">
-                    <x-input label="{{ __('Name') }}" wire:model="subscriptions.{{ $key }}.overrides.tv_show_name"/>
+                <x-card :title="$subscription['overrides']['tv_show_name']">
                     <x-input label="{{ __('URL') }}" wire:model="subscriptions.{{ $key }}.overrides.url"/>
                     <x-select label="{{ __('Preset') }}" wire:model="subscriptions.{{ $key }}.preset" :options="$presets"/>
 
