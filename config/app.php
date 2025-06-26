@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'ytdl-sub Manager'),
+    'name' => env('APP_NAME', 'ytdl-sub'),
 
     /*
     |--------------------------------------------------------------------------
