@@ -2,6 +2,13 @@
 
 All notable changes to `rpungello/ytdl-sub-manager` will be documented in this file.
 
+## 1.1.2 - 2025-06-26
+
+- Use lucide icons
+- Prevent name updates
+- Display configured name as logo
+- Update default app name
+
 ## 1.1.1 - 2025-06-26
 
 Fixed validation for creating new subscriptions
