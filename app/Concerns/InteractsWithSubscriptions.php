@@ -11,6 +11,7 @@ trait InteractsWithSubscriptions
     {
         $subscriptions = Yaml::parseFile(config('ytdl-sub.subscriptions'));
         ksort($subscriptions);
+
         return $subscriptions;
     }
 
