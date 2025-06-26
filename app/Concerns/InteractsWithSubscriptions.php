@@ -3,6 +3,7 @@
 namespace App\Concerns;
 
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 use Symfony\Component\Yaml\Yaml;
 
 trait InteractsWithSubscriptions
@@ -21,9 +22,12 @@ trait InteractsWithSubscriptions
         file_put_contents(config('ytdl-sub.subscriptions'), $yamlContent);
     }
 
+    /**
+     * @throws ValidationException
+     */
     protected function appendSubscription(string $key, string $name, string $url, string $preset, array $existing = []): array
     {
-        $validator = Validator::validate(compact('key', 'name', 'url', 'preset', 'existing'), [
+        Validator::validate(compact('key', 'name', 'url', 'preset', 'existing'), [
             'key' => ['required', 'regex:/[a-z]+/'],
             'name' => ['required'],
             'url' => ['required'],

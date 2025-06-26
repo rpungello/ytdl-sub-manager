@@ -6,6 +6,7 @@ use App\Concerns\InteractsWithConfig;
 use App\Concerns\InteractsWithSubscriptions;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Arr;
+use Illuminate\Validation\ValidationException;
 use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
 use Livewire\Component;
 
@@ -45,11 +46,19 @@ class ListSubscriptions extends Component
 
     public function create(): void
     {
-        $this->subscriptions = $this->appendSubscription($this->newKey, $this->newName, $this->newUrl, $this->newPreset, $this->subscriptions);
-        $this->saveSubscriptions($this->subscriptions);
+        try {
+            $this->subscriptions = $this->appendSubscription($this->newKey, $this->newName, $this->newUrl, $this->newPreset, $this->subscriptions);
+            $this->saveSubscriptions($this->subscriptions);
 
-        LivewireAlert::success()->title('Subscription Created')->toast()->show();
-        $this->subscriptions = $this->loadSubscriptions();
+            LivewireAlert::success()->title('Subscription Created')->toast()->show();
+            $this->subscriptions = $this->loadSubscriptions();
+        } catch (ValidationException $e) {
+            LivewireAlert::title('Validation Failed')
+                ->text($e->getMessage())
+                ->error()
+                ->toast()
+                ->show();
+        }
     }
 
     public function remove(string $key): void
