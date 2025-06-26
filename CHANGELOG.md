@@ -2,6 +2,10 @@
 
 All notable changes to `rpungello/ytdl-sub-manager` will be documented in this file.
 
+## 1.1.1 - 2025-06-26
+
+Fixed validation for creating new subscriptions
+
 ## 1.1.0 - 2025-06-26
 
 - Allow changing presets
