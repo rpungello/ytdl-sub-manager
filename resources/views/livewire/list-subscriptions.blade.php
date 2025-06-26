@@ -20,6 +20,7 @@
                 <x-form wire:submit.prevent="save">
                     <x-input label="{{ __('Name') }}" wire:model="subscriptions.{{ $key }}.overrides.tv_show_name"/>
                     <x-input label="{{ __('URL') }}" wire:model="subscriptions.{{ $key }}.overrides.url"/>
+                    <x-select label="{{ __('Preset') }}" wire:model="subscriptions.{{ $key }}.preset" :options="$presets"/>
 
                     <x-button class="btn btn-primary" type="submit" label="{{ __('Save') }}"/>
                 </x-form>
