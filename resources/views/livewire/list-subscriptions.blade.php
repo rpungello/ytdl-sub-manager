@@ -13,7 +13,7 @@
 
 
                 <x-slot:actions>
-                    <x-button class="btn btn-success" type="submit" label="{{ __('Create') }}"/>
+                    <x-button class="btn btn-success" type="submit" icon="lucide.plus"/>
                 </x-slot:actions>
             </x-card>
         </x-form>
@@ -27,8 +27,8 @@
 
 
                     <x-slot:actions>
-                        <x-button class="btn btn-primary" type="submit" label="{{ __('Save') }}"/>
-                        <x-button class="btn btn-error" type="button" icon="o-trash" wire:click="remove('{{ $key }}')"/>
+                        <x-button class="btn btn-primary" type="submit" icon="lucide.save"/>
+                        <x-button class="btn btn-error" type="button" icon="lucide.trash" wire:click="remove('{{ $key }}')"/>
                     </x-slot:actions>
                 </x-card>
             </x-form>
