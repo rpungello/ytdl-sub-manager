@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Concerns\InteractsWithConfig;
 use App\Concerns\InteractsWithSubscriptions;
 use Illuminate\Contracts\View\View;
+use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
 use Livewire\Component;
 
 class ListSubscriptions extends Component
@@ -38,6 +39,7 @@ class ListSubscriptions extends Component
     public function save(): void
     {
         $this->saveSubscriptions($this->subscriptions);
+        LivewireAlert::success()->title('Subscriptions Saved')->toast()->show();
     }
 
     public function create(): void
@@ -45,6 +47,7 @@ class ListSubscriptions extends Component
         $this->subscriptions = $this->appendSubscription($this->newKey, $this->newName, $this->newUrl, $this->newPreset, $this->subscriptions);
         $this->saveSubscriptions($this->subscriptions);
 
-        $this->redirectRoute('subscriptions.index');
+        LivewireAlert::success()->title('Subscription Created')->toast()->show();
+        $this->subscriptions = $this->loadSubscriptions();
     }
 }
