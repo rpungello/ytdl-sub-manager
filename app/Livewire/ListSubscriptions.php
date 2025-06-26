@@ -12,6 +12,14 @@ class ListSubscriptions extends Component
 
     public array $subscriptions = [];
 
+    public string $newKey = '';
+
+    public string $newPreset = 'yt_show';
+
+    public string $newName = '';
+
+    public string $newUrl = '';
+
     public function mount(): void
     {
         $this->subscriptions = $this->loadSubscriptions();
@@ -22,8 +30,16 @@ class ListSubscriptions extends Component
         return view('livewire.list-subscriptions');
     }
 
-    public function save(string $key): void
+    public function save(): void
     {
         $this->saveSubscriptions($this->subscriptions);
+    }
+
+    public function create(): void
+    {
+        $this->subscriptions = $this->appendSubscription($this->newKey, $this->newName, $this->newUrl, $this->newPreset, $this->subscriptions);
+        $this->saveSubscriptions($this->subscriptions);
+
+        $this->redirectRoute('subscriptions.index');
     }
 }

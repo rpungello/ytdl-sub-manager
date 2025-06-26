@@ -2,6 +2,7 @@
 
 namespace App\Concerns;
 
+use Illuminate\Support\Facades\Validator;
 use Symfony\Component\Yaml\Yaml;
 
 trait InteractsWithSubscriptions
@@ -15,5 +16,25 @@ trait InteractsWithSubscriptions
     {
         $yamlContent = Yaml::dump($subscriptions, 3);
         file_put_contents(config('ytdl-sub.subscriptions'), $yamlContent);
+    }
+
+    protected function appendSubscription(string $key, string $name, string $url, string $preset, array $existing = []): array
+    {
+        $validator = Validator::validate(compact('key', 'name', 'url', 'preset', 'existing'), [
+            'key' => ['required', 'regex:/[a-z]+/'],
+            'name' => ['required'],
+            'url' => ['required'],
+            'preset' => ['required', 'in:yt_show,yt_show_all'],
+        ]);
+
+        $existing[$key] = [
+            'preset' => $preset,
+            'overrides' => [
+                'tv_show_name' => $name,
+                'url' => $url,
+            ]
+        ];
+
+        return $existing;
     }
 }
