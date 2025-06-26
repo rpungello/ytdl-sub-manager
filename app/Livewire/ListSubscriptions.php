@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Concerns\InteractsWithConfig;
 use App\Concerns\InteractsWithSubscriptions;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Arr;
 use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
 use Livewire\Component;
 
@@ -49,5 +50,24 @@ class ListSubscriptions extends Component
 
         LivewireAlert::success()->title('Subscription Created')->toast()->show();
         $this->subscriptions = $this->loadSubscriptions();
+    }
+
+    public function remove(string $key): void
+    {
+        LivewireAlert::title('Remove Subscription?')
+            ->text(Arr::get($this->subscriptions, "$key.overrides.tv_show_name", $key))
+            ->onConfirm('removeSubscription', ['key' => $key])
+            ->asConfirm()
+            ->show();
+    }
+
+    public function removeSubscription(array $data): void
+    {
+        $key = Arr::get($data, 'key');
+
+        if (array_key_exists($key, $this->subscriptions)) {
+            unset($this->subscriptions[$key]);
+            $this->saveSubscriptions($this->subscriptions);
+        }
     }
 }
