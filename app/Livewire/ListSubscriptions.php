@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Concerns\InteractsWithConfig;
 use App\Concerns\InteractsWithSubscriptions;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
@@ -9,8 +10,11 @@ use Livewire\Component;
 class ListSubscriptions extends Component
 {
     use InteractsWithSubscriptions;
+    use InteractsWithConfig;
 
     public array $subscriptions = [];
+
+    public array $presets = [];
 
     public string $newKey = '';
 
@@ -23,6 +27,7 @@ class ListSubscriptions extends Component
     public function mount(): void
     {
         $this->subscriptions = $this->loadSubscriptions();
+        $this->presets = $this->loadPresetMenu();
     }
 
     public function render(): View

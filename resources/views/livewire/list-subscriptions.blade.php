@@ -9,7 +9,7 @@
                 <x-input label="{{ __('Key') }}" wire:model="newKey"/>
                 <x-input label="{{ __('Name') }}" wire:model="newName"/>
                 <x-input label="{{ __('URL') }}" wire:model="newUrl"/>
-                <x-input label="{{ __('Preset') }}" wire:model="newPreset"/>
+                <x-select label="{{ __('Preset') }}" wire:model="newPreset" :options="$presets"/>
 
                 <x-button class="btn btn-success" type="submit" label="{{ __('Create') }}"/>
             </x-form>
