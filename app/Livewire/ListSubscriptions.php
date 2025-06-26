@@ -9,8 +9,8 @@ use Livewire\Component;
 
 class ListSubscriptions extends Component
 {
-    use InteractsWithSubscriptions;
     use InteractsWithConfig;
+    use InteractsWithSubscriptions;
 
     public array $subscriptions = [];
 

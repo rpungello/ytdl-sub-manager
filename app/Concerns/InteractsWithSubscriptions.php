@@ -32,7 +32,7 @@ trait InteractsWithSubscriptions
             'overrides' => [
                 'tv_show_name' => $name,
                 'url' => $url,
-            ]
+            ],
         ];
 
         return $existing;

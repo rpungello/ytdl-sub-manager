@@ -25,7 +25,7 @@ trait InteractsWithConfig
     protected function loadPresetMenu(): array
     {
         return array_map(
-            fn(string $preset) => [
+            fn (string $preset) => [
                 'id' => $preset,
                 'name' => $preset,
             ],
