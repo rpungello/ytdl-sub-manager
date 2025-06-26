@@ -9,7 +9,9 @@ trait InteractsWithSubscriptions
 {
     protected function loadSubscriptions(): array
     {
-        return Yaml::parseFile(config('ytdl-sub.subscriptions'));
+        $subscriptions = Yaml::parseFile(config('ytdl-sub.subscriptions'));
+        ksort($subscriptions);
+        return $subscriptions;
     }
 
     protected function saveSubscriptions(array $subscriptions): void
