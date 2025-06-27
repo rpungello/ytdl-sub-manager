@@ -9,7 +9,12 @@ trait InteractsWithConfig
 {
     protected function loadConfig(): array
     {
-        return Yaml::parseFile(config('ytdl-sub.config'));
+        $path = config('ytdl-sub.config');
+        if (! file_exists($path)) {
+            file_put_contents($path, Yaml::dump([]));
+        }
+
+        return Yaml::parseFile($path);
     }
 
     protected function loadPresets(): array

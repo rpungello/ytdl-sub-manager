@@ -10,7 +10,12 @@ trait InteractsWithSubscriptions
 {
     protected function loadSubscriptions(): array
     {
-        $subscriptions = Yaml::parseFile(config('ytdl-sub.subscriptions'));
+        $path = config('ytdl-sub.subscriptions');
+        if (! file_exists($path)) {
+            file_put_contents($path, Yaml::dump([]));
+        }
+
+        $subscriptions = Yaml::parseFile($path);
         ksort($subscriptions);
 
         return $subscriptions;
