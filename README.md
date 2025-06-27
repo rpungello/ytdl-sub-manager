@@ -29,6 +29,7 @@ Modify this file to have the correct path that contains `config.yaml` and `subsc
 
 If you want to use a port other than 80, set a `WEB_PORT` environment variable.
 
+Start the container:
 ```bash
 docker-compose up -d
 ```
