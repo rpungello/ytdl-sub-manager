@@ -28,3 +28,7 @@ wget -O docker-compose.yml https://raw.githubusercontent.com/rpungello/ytdl-sub-
 Modify this file to have the correct path that contains `config.yaml` and `subscriptions.yaml` for ytdl-sub mapped to `/config`.
 
 If you want to use a port other than 80, set a `WEB_PORT` environment variable.
+
+```bash
+docker-compose up -d
+```
