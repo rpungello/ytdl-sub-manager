@@ -2,6 +2,10 @@
 
 All notable changes to `rpungello/ytdl-sub-manager` will be documented in this file.
 
+## 1.2.0 - 2025-06-28
+
+Add preset filter for existing subscriptions
+
 ## 1.1.2 - 2025-06-26
 
 - Use lucide icons
