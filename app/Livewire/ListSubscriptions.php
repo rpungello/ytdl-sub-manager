@@ -52,6 +52,10 @@ class ListSubscriptions extends Component
 
             LivewireAlert::success()->title('Subscription Created')->toast()->show();
             $this->subscriptions = $this->loadSubscriptions();
+            $this->newKey = '';
+            $this->newName = '';
+            $this->newUrl = '';
+            $this->newPreset = 'yt_show';
         } catch (ValidationException $e) {
             LivewireAlert::title('Validation Failed')
                 ->text($e->getMessage())
