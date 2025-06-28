@@ -40,9 +40,13 @@ class ListSubscriptions extends Component
         return view('livewire.list-subscriptions');
     }
 
-    public function filter(): void
+    public function shouldShowSubscription(string $key): bool
     {
-        $this->subscriptions = $this->loadSubscriptions($this->filterPreset);
+        if (empty($this->filterPreset)) {
+            return true;
+        } else {
+            return $this->subscriptions[$key]['preset'] === $this->filterPreset;
+        }
     }
 
     public function save(): void

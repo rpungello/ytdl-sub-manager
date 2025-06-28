@@ -8,7 +8,7 @@ use Symfony\Component\Yaml\Yaml;
 
 trait InteractsWithSubscriptions
 {
-    protected function loadSubscriptions(?string $preset = null): array
+    protected function loadSubscriptions(): array
     {
         $path = config('ytdl-sub.subscriptions');
         if (! file_exists($path)) {
@@ -16,9 +16,6 @@ trait InteractsWithSubscriptions
         }
 
         $subscriptions = Yaml::parseFile($path);
-        if (! empty($preset)) {
-            $subscriptions = array_filter($subscriptions, fn (array $subscription) => $subscription['preset'] === $preset);
-        }
         ksort($subscriptions);
 
         return $subscriptions;
