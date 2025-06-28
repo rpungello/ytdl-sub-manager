@@ -27,6 +27,8 @@ class ListSubscriptions extends Component
 
     public string $newUrl = '';
 
+    public ?string $filterPreset = null;
+
     public function mount(): void
     {
         $this->subscriptions = $this->loadSubscriptions();
@@ -36,6 +38,11 @@ class ListSubscriptions extends Component
     public function render(): View
     {
         return view('livewire.list-subscriptions');
+    }
+
+    public function filter(): void
+    {
+        $this->subscriptions = $this->loadSubscriptions($this->filterPreset);
     }
 
     public function save(): void

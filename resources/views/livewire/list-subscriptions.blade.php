@@ -18,6 +18,14 @@
             </x-card>
         </x-form>
 
+        <x-card title="{{ __('Filter') }}">
+            <x-select label="{{ __('Preset') }}" wire:model="filterPreset" :options="$presets" placeholder="- {{ __('All') }}- "/>
+
+            <x-slot:actions>
+                <x-button class="btn btn-primary" type="button" wire:click="filter" icon="lucide.filter"/>
+            </x-slot:actions>
+        </x-card>
+
         @foreach($subscriptions as $key => $subscription)
             <x-form wire:submit.prevent="save">
                 <x-card :title="$subscription['overrides']['tv_show_name']">
