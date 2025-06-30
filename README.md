@@ -1,5 +1,9 @@
 # ytdl-sub Manager
 
+## About
+
+Web-based utility for managing the `subscriptions.yaml` file used by ytdl-sub. This allows you to add new subscriptions, erase existing subscriptions, and change the preset/URL for existing subscriptions without needing to SSH into the Docker host and manually edit the yaml file.
+
 ## Usage
 
 Create `APP_KEY` environment variable:
