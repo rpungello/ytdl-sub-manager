@@ -8,7 +8,7 @@ Web-based utility for managing the `subscriptions.yaml` file used by ytdl-sub. T
 
 Create `APP_KEY` environment variable:
 ```bash
-echo "APP_KEY=$(docker run --rm --entrypoint php rpungello/ytdl-sub-manager:latest artisan key:generate --show)" >.env
+echo "APP_KEY=$(docker run --rm --entrypoint php ghcr.io/rpungello/ytdl-sub-manager:latest artisan key:generate --show)" >.env
 ```
 
 ### Docker
@@ -19,7 +19,7 @@ docker run -d \
   -p 80:80 \
   -v /path/to/ytdl-config:/config \
   --env-file .env \
-  rpungello/ytdl-sub-manager:latest
+  ghcr.io/rpungello/ytdl-sub-manager:latest
 ```
 
 ### Docker Compose
