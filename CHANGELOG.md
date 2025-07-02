@@ -2,6 +2,10 @@
 
 All notable changes to `rpungello/ytdl-sub-manager` will be documented in this file.
 
+## 1.2.2 - 2025-07-02
+
+Switch to Github packages for CI deployments
+
 ## 1.2.1 - 2025-06-28
 
 Prevent saving subscriptions w/ filter enabled from discarding subscriptions not included in the filter
