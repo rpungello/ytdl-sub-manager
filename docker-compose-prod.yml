@@ -1,6 +1,6 @@
 services:
   app:
-    image: rpungello/ytdl-sub-manager:latest
+    image: ghcr.io/rpungello/ytdl-sub-manager:latest
     ports:
       - "${WEB_PORT:-80}:80"
     restart: unless-stopped
