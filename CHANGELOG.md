@@ -2,6 +2,11 @@
 
 All notable changes to `rpungello/ytdl-sub-manager` will be documented in this file.
 
+## 1.2.3 - 2025-07-22
+
+- Fix CVE-2025-54068
+- Fix CVE-2025-7783
+
 ## 1.2.2 - 2025-07-02
 
 Switch to Github packages for CI deployments
