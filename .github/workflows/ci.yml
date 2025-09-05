@@ -1,22 +1,65 @@
-name: Create and publish a Docker image
+name: Continuous integration
 
 on:
   release:
     types: [released]
 
 env:
-  REGISTRY: ghcr.io
+  REGISTRY: ${{ vars.REGISTRY }}
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-  build-and-push-image:
+  changelog:
+    name: Update changelog
+    runs-on: ubuntu-latest
+    environment: Build
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Update changelog
+        uses: stefanzweifel/changelog-updater-action@v1
+        with:
+          latest-version: ${{ github.event.release.name }}
+          release-notes: ${{ github.event.release.body }}
+
+      - name: Commit updated CHANGELOG
+        uses: stefanzweifel/git-auto-commit-action@v6
+        with:
+          branch: main
+          commit_message: Update CHANGELOG
+          file_pattern: CHANGELOG.md
+
+      - name: Upload changelog
+        uses: actions/upload-artifact@v4
+        with:
+          name: changelog
+          path: CHANGELOG.md
+
+  docker:
+    name: Build and push Docker image
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
       attestations: write
       id-token: write
+    environment: Build
+    needs: changelog
     steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Download changelog
+        uses: actions/download-artifact@v4
+        with:
+          name: changelog
+
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@v5
@@ -44,9 +87,13 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
+          context: .
           platforms: linux/amd64,linux/arm64/v8
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          secrets: |
+            FLUX_LICENSE_KEY=${{ secrets.FLUX_LICENSE_KEY }}
           build-args: |
             VERSION=${{ github.ref_name }}
+            FLUX_USERNAME=${{ vars.FLUX_USERNAME }}
