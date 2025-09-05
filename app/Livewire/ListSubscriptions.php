@@ -6,7 +6,6 @@ use App\Concerns\InteractsWithConfig;
 use App\Concerns\InteractsWithSubscriptions;
 use Flux\Flux;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Arr;
 use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 
