@@ -26,15 +26,4 @@ trait InteractsWithConfig
     {
         return array_keys($this->loadPresets());
     }
-
-    protected function loadPresetMenu(): array
-    {
-        return array_map(
-            fn (string $preset) => [
-                'id' => $preset,
-                'name' => $preset,
-            ],
-            $this->loadPresetNames()
-        );
-    }
 }

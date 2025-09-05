@@ -4,10 +4,10 @@ namespace App\Livewire;
 
 use App\Concerns\InteractsWithConfig;
 use App\Concerns\InteractsWithSubscriptions;
+use Flux\Flux;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Arr;
 use Illuminate\Validation\ValidationException;
-use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
 use Livewire\Component;
 
 class ListSubscriptions extends Component
@@ -29,10 +29,12 @@ class ListSubscriptions extends Component
 
     public ?string $filterPreset = null;
 
+    public ?string $removing = null;
+
     public function mount(): void
     {
         $this->subscriptions = $this->loadSubscriptions();
-        $this->presets = $this->loadPresetMenu();
+        $this->presets = $this->loadPresetNames();
     }
 
     public function render(): View
@@ -52,7 +54,7 @@ class ListSubscriptions extends Component
     public function save(): void
     {
         $this->saveSubscriptions($this->subscriptions);
-        LivewireAlert::success()->title('Subscriptions Saved')->toast()->show();
+        Flux::toast('Subscriptions Saved', variant: 'success');
     }
 
     public function create(): void
@@ -61,37 +63,33 @@ class ListSubscriptions extends Component
             $this->subscriptions = $this->appendSubscription($this->newKey, $this->newName, $this->newUrl, $this->newPreset, $this->subscriptions);
             $this->saveSubscriptions($this->subscriptions);
 
-            LivewireAlert::success()->title('Subscription Created')->toast()->show();
+            Flux::toast('Subscription Created', variant: 'success');
             $this->subscriptions = $this->loadSubscriptions();
             $this->newKey = '';
             $this->newName = '';
             $this->newUrl = '';
             $this->newPreset = 'yt_show';
         } catch (ValidationException $e) {
-            LivewireAlert::title('Validation Failed')
-                ->text($e->getMessage())
-                ->error()
-                ->toast()
-                ->show();
+            Flux::toast($e->getMessage(), 'Validation Failed', variant: 'danger');
         }
     }
 
-    public function remove(string $key): void
+    public function prepareRemove(string $key): void
     {
-        LivewireAlert::title('Remove Subscription?')
-            ->text(Arr::get($this->subscriptions, "$key.overrides.tv_show_name", $key))
-            ->onConfirm('removeSubscription', ['key' => $key])
-            ->asConfirm()
-            ->show();
+        $this->removing = $key;
     }
 
-    public function removeSubscription(array $data): void
+    public function removeSubscription(): void
     {
-        $key = Arr::get($data, 'key');
+        if (empty($this->removing)) {
+            return;
+        }
 
-        if (array_key_exists($key, $this->subscriptions)) {
-            unset($this->subscriptions[$key]);
+        if (array_key_exists($this->removing, $this->subscriptions)) {
+            unset($this->subscriptions[$this->removing]);
             $this->saveSubscriptions($this->subscriptions);
         }
+
+        Flux::modal('delete-subscription')->close();
     }
 }

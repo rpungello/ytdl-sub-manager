@@ -1,19 +1,27 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "laravel/laravel",
+    "name": "rpungello/ytdl-sub-manager",
     "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
-    "keywords": ["laravel", "framework"],
+    "description": "Web-based GUI manager for ytdl-sub.",
+    "keywords": [
+        "laravel",
+        "ytdl-sub"
+    ],
     "license": "MIT",
+    "repositories": {
+        "flux-pro": {
+            "type": "composer",
+            "url": "https://composer.fluxui.dev"
+        }
+    },
     "require": {
         "php": "^8.2",
-        "jantinnerezo/livewire-alert": "^4.0",
         "laravel/fortify": "^1.27",
         "laravel/framework": "^12.0",
         "laravel/tinker": "^2.10.1",
+        "livewire/flux": "^2.3",
+        "livewire/flux-pro": "^2.3",
         "livewire/livewire": "^3.6",
-        "mallardduck/blade-lucide-icons": "^1.23",
-        "robsontenorio/mary": "^2.4",
         "symfony/yaml": "^7.3"
     },
     "require-dev": {
@@ -23,7 +31,8 @@
         "laravel/sail": "^1.41",
         "mockery/mockery": "^1.6",
         "nunomaduro/collision": "^8.6",
-        "phpunit/phpunit": "^11.5.3"
+        "pestphp/pest": "^4.0",
+        "pestphp/pest-plugin-laravel": "^4.0"
     },
     "autoload": {
         "psr-4": {
