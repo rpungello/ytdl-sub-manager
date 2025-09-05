@@ -1,4 +1,5 @@
-FROM ghcr.io/rpungello/laravel-frankenphp:php8.4
+ARG BASE_TAG=php8.4-trixie
+FROM ghcr.io/rpungello/laravel-frankenphp:${BASE_TAG}
 
 ARG VERSION=1.0.0
 ENV APP_VERSION=${VERSION}
