@@ -2,6 +2,10 @@
 
 All notable changes to `rpungello/ytdl-sub-manager` will be documented in this file.
 
+## 2.0.0 - 2025-09-05
+
+Rewrite using Flux
+
 ## 1.2.3 - 2025-07-22
 
 - Fix CVE-2025-54068
