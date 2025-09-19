@@ -2,6 +2,10 @@
 
 All notable changes to `rpungello/ytdl-sub-manager` will be documented in this file.
 
+## 2.3.0 - 2025-09-19
+
+UI improvements for viewing channel videos
+
 ## 2.2.0 - 2025-09-19
 
 Add rough draft of detailed view
