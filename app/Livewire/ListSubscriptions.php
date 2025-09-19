@@ -99,11 +99,36 @@ class ListSubscriptions extends Component
 
     public function getNumberOfEpisodes(string $key): int
     {
-        return Cache::remember("shows.$key.episodes", CarbonInterval::createFromDateString('1 hour'), function () use ($key) {
-            return $this->countEpisodesInDirectory(
-                $this->getDirectoryForKey($key)
+        $directory = $this->getDirectoryForKey($key);
+
+        if ($this->archiveFileExists($key, $directory)) {
+            $json = json_decode(
+                file_get_contents($this->getArchiveFilePath($key, $directory)),
+                true
             );
-        });
+
+            if (json_last_error() === JSON_ERROR_NONE) {
+                return count($json);
+            }
+        }
+
+        return Cache::remember(
+            "shows.$key.episodes",
+            CarbonInterval::createFromDateString('1 hour'),
+            fn () => $this->countEpisodesInDirectory($directory)
+        );
+    }
+
+    private function archiveFileExists(string $key, string $directory): bool
+    {
+        return is_readable(
+            $this->getArchiveFilePath($key, $directory)
+        );
+    }
+
+    private function getArchiveFilePath(string $key, string $directory): string
+    {
+        return "$directory/.ytdl-sub-$key-download-archive.json";
     }
 
     private function getDirectoryForKey(string $key): string
