@@ -2,6 +2,10 @@
 
 All notable changes to `rpungello/ytdl-sub-manager` will be documented in this file.
 
+## 2.3.1 - 2025-09-19
+
+Fix issue with `filesize_approx` key missing
+
 ## 2.3.0 - 2025-09-19
 
 UI improvements for viewing channel videos
