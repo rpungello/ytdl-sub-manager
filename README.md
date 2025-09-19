@@ -18,6 +18,7 @@ docker run -d \
   --name ytdl-sub-manager \
   -p 80:80 \
   -v /path/to/ytdl-config:/config \
+  -v /path/to/downloaded/videos:/videos \
   --env-file .env \
   ghcr.io/rpungello/ytdl-sub-manager:latest
 ```
