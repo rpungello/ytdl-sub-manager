@@ -3,6 +3,8 @@
 namespace App\Livewire;
 
 use App\Concerns\InteractsWithSubscriptions;
+use Carbon\CarbonInterval;
+use Exception;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Number;
@@ -57,6 +59,7 @@ class ViewSubscription extends Component
             'resolution' => $info['resolution'],
             'upload_date' => $video['upload_date'],
             'size' => Number::fileSize($info['filesize_approx']),
+            'runtime' => $this->extractFormattedRuntime($info['duration']),
         ];
     }
 
@@ -71,5 +74,14 @@ class ViewSubscription extends Component
     private function getInfoPath(array $video): string
     {
         return Arr::first($video['file_names'], fn ($file) => str_ends_with($file, '.info.json'));
+    }
+
+    private function extractFormattedRuntime($duration): string
+    {
+        try {
+            return CarbonInterval::seconds($duration)->cascade()->forHumans();
+        } catch (Exception $e) {
+            return 'N/A';
+        }
     }
 }
