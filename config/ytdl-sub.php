@@ -3,5 +3,5 @@
 return [
     'config' => env('YTDL_SUB_CONFIG_PATH', '/config/config.yaml'),
     'subscriptions' => env('YTDL_SUB_SUBSCRIPTIONS_PATH', '/config/subscriptions.yaml'),
-    'videos' => env('YTDL_SUB_VIDEOS_PATH', '/videos')
+    'videos' => env('YTDL_SUB_VIDEOS_PATH', '/videos'),
 ];
