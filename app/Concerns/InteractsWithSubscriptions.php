@@ -49,4 +49,25 @@ trait InteractsWithSubscriptions
 
         return $existing;
     }
+
+    protected function archiveFileExists(string $key, string $directory): bool
+    {
+        return is_readable(
+            $this->getArchiveFilePath($key, $directory)
+        );
+    }
+
+    protected function getArchiveFilePath(string $key, string $directory): string
+    {
+        return "$directory/.ytdl-sub-$key-download-archive.json";
+    }
+
+    protected function getDirectoryForKey(string $key, ?array $subscriptions = null): string
+    {
+        if (empty($subscriptions)) {
+            $subscriptions = $this->loadSubscriptions();
+        }
+
+        return config('ytdl-sub.videos').'/'.$subscriptions[$key]['overrides']['tv_show_name'];
+    }
 }

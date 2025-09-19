@@ -99,7 +99,7 @@ class ListSubscriptions extends Component
 
     public function getNumberOfEpisodes(string $key): int
     {
-        $directory = $this->getDirectoryForKey($key);
+        $directory = $this->getDirectoryForKey($key, $this->subscriptions);
 
         if ($this->archiveFileExists($key, $directory)) {
             $json = json_decode(
@@ -117,23 +117,6 @@ class ListSubscriptions extends Component
             CarbonInterval::createFromDateString('1 hour'),
             fn () => $this->countEpisodesInDirectory($directory)
         );
-    }
-
-    private function archiveFileExists(string $key, string $directory): bool
-    {
-        return is_readable(
-            $this->getArchiveFilePath($key, $directory)
-        );
-    }
-
-    private function getArchiveFilePath(string $key, string $directory): string
-    {
-        return "$directory/.ytdl-sub-$key-download-archive.json";
-    }
-
-    private function getDirectoryForKey(string $key): string
-    {
-        return config('ytdl-sub.videos').'/'.$this->subscriptions[$key]['overrides']['tv_show_name'];
     }
 
     private function countEpisodesInDirectory(string $directory): int
