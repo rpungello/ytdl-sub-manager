@@ -6,8 +6,8 @@
         <flux:table.columns>
             <flux:table.column>{{ __('Upload Date') }}</flux:table.column>
             <flux:table.column>{{ __('Title') }}</flux:table.column>
-            <flux:table.column>{{ __('Resolution') }}</flux:table.column>
             <flux:table.column>{{ __('Runtime') }}</flux:table.column>
+            <flux:table.column>{{ __('Resolution') }}</flux:table.column>
             <flux:table.column>{{ __('Size') }}</flux:table.column>
         </flux:table.columns>
         <flux:table.rows>
@@ -15,8 +15,8 @@
                 <flux:table.row>
                     <flux:table.cell>{{ $video['upload_date'] }}</flux:table.cell>
                     <flux:table.cell>{{ $video['title'] }}</flux:table.cell>
-                    <flux:table.cell>{{ $video['resolution'] }}</flux:table.cell>
                     <flux:table.cell>{{ $video['runtime'] }}</flux:table.cell>
+                    <flux:table.cell>{{ $video['resolution'] }}</flux:table.cell>
                     <flux:table.cell>{{ $video['size'] }}</flux:table.cell>
                 </flux:table.row>
             @endforeach
