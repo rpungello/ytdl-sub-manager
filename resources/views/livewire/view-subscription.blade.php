@@ -20,7 +20,7 @@
                         @if(str_contains($video['resolution'], 'x'))
                             {{ $video['resolution'] }}
                         @else
-                            <flux:badge :color="$video['resolution'] === '4K' ? 'green' : 'blue'">
+                            <flux:badge :color="str_ends_with($video['resolution'], 'K') ? 'green' : 'blue'">
                                 {{ $video['resolution'] }}
                             </flux:badge>
                         @endif

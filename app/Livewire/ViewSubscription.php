@@ -92,6 +92,7 @@ class ViewSubscription extends Component
             '1920x1080' => '1080p',
             '1280x720' => '720p',
             '3840x2160' => '4K',
+            '7680x4320' => '8K',
             default => $resolution,
         };
     }
