@@ -4,10 +4,15 @@ namespace App\Livewire;
 
 use App\Concerns\InteractsWithConfig;
 use App\Concerns\InteractsWithSubscriptions;
+use Carbon\CarbonInterval;
 use Flux\Flux;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Validation\ValidationException;
 use Livewire\Component;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
+use UnexpectedValueException;
 
 class ListSubscriptions extends Component
 {
@@ -90,5 +95,44 @@ class ListSubscriptions extends Component
         }
 
         Flux::modal('delete-subscription')->close();
+    }
+
+    public function getNumberOfEpisodes(string $key): int
+    {
+        return Cache::remember("shows.$key.episodes", CarbonInterval::createFromDateString('1 hour'), function () use ($key) {
+            return $this->countEpisodesInDirectory(
+                $this->getDirectoryForKey($key)
+            );
+        });
+    }
+
+    private function getDirectoryForKey(string $key): string
+    {
+        return config('ytdl-sub.videos').'/'.$this->subscriptions[$key]['overrides']['tv_show_name'];
+    }
+
+    private function countEpisodesInDirectory(string $directory): int
+    {
+        $count = 0;
+        try {
+            $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($directory));
+            foreach ($iterator as $file) {
+                if ($file->isFile() && in_array($file->getExtension(), $this->getVideoExtensions())) {
+                    $count++;
+                }
+            }
+
+            return $count;
+        } catch (UnexpectedValueException) {
+            return 0;
+        }
+    }
+
+    /**
+     * @return string[]
+     */
+    private function getVideoExtensions(): array
+    {
+        return ['mp4', 'webm'];
     }
 }

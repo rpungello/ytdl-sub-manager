@@ -8,3 +8,4 @@ services:
       - APP_KEY="${APP_KEY}"
     volumes:
       - /path/to/ytdl-sub-config:/config
+      - /path/to/videos:/videos

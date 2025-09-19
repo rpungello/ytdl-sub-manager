@@ -41,6 +41,7 @@
                     <flux:card class="space-y-4">
                         <flux:heading size="lg" level="2">
                             {{ $subscription['overrides']['tv_show_name'] }}
+                            <flux:badge size="sm">{{ number_format($this->getNumberOfEpisodes($key)) }}</flux:badge>
                         </flux:heading>
                         <flux:input label="{{ __('URL') }}" wire:model="subscriptions.{{ $key }}.overrides.url"/>
                         <flux:select label="{{ __('Preset') }}" wire:model="subscriptions.{{ $key }}.preset">
