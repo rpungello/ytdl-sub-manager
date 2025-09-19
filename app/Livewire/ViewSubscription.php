@@ -39,6 +39,7 @@ class ViewSubscription extends Component
         );
 
         usort($videos, fn (array $a, array $b) => strcmp($b['upload_date'], $a['upload_date']));
+
         return $videos;
     }
 }
