@@ -57,7 +57,7 @@ class ViewSubscription extends Component
 
         return [
             'title' => $info['title'],
-            'resolution' => $info['resolution'],
+            'resolution' => $this->formatResolution($info['resolution']),
             'upload_date' => $video['upload_date'],
             'size' => Number::fileSize($info['filesize_approx']),
             'runtime' => $this->extractFormattedRuntime($info['duration']),
@@ -84,5 +84,15 @@ class ViewSubscription extends Component
         } catch (Exception $e) {
             return 'N/A';
         }
+    }
+
+    private function formatResolution(string $resolution): string
+    {
+        return match($resolution) {
+            '1920x1080' => '1080p',
+            '1280x720' => '720p',
+            '3840x2160' => '4K',
+            default => $resolution,
+        };
     }
 }

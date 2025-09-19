@@ -16,7 +16,15 @@
                     <flux:table.cell>{{ $video['upload_date'] }}</flux:table.cell>
                     <flux:table.cell>{{ $video['title'] }}</flux:table.cell>
                     <flux:table.cell>{{ $video['runtime'] }}</flux:table.cell>
-                    <flux:table.cell>{{ $video['resolution'] }}</flux:table.cell>
+                    <flux:table.cell>
+                        @if(str_contains($video['resolution'], 'x'))
+                            {{ $video['resolution'] }}
+                        @else
+                            <flux:badge :color="$video['resolution'] === '4K' ? 'green' : 'blue'">
+                                {{ $video['resolution'] }}
+                            </flux:badge>
+                        @endif
+                    </flux:table.cell>
                     <flux:table.cell>{{ $video['size'] }}</flux:table.cell>
                 </flux:table.row>
             @endforeach
