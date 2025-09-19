@@ -59,7 +59,7 @@ class ViewSubscription extends Component
             'title' => $info['title'],
             'resolution' => $this->formatResolution($info['resolution']),
             'upload_date' => $video['upload_date'],
-            'size' => Number::fileSize($info['filesize_approx']),
+            'size' => array_key_exists('filesize_approx', $info) ? Number::fileSize($info['filesize_approx']) : 'N/A',
             'runtime' => $this->extractFormattedRuntime($info['duration']),
         ];
     }
