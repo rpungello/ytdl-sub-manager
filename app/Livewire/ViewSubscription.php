@@ -89,8 +89,11 @@ class ViewSubscription extends Component
     private function formatResolution(string $resolution): string
     {
         return match ($resolution) {
-            '1920x1080' => '1080p',
+            '640x360' => '360p',
+            '854x480' => '480p',
             '1280x720' => '720p',
+            '1920x1080' => '1080p',
+            '2560x1440' => '1440p',
             '3840x2160' => '4K',
             '7680x4320' => '8K',
             default => $resolution,
