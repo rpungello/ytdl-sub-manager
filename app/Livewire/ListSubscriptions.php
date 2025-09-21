@@ -35,17 +35,30 @@ class ListSubscriptions extends Component
 
     public ?string $removing = null;
 
+    /**
+     * Initialize the component.
+     * Load subscriptions and presets from data sources.
+     */
     public function mount(): void
     {
         $this->subscriptions = $this->loadSubscriptions();
         $this->presets = $this->loadPresetNames();
     }
 
+    /**
+     * Render the Livewire component view.
+     */
     public function render(): View
     {
         return view('livewire.list-subscriptions');
     }
 
+    /**
+     * Determine if a subscription should be shown based on the filter preset.
+     *
+     * @param  string  $key  The key of the subscription to check.
+     * @return bool True if the subscription should be shown, false otherwise.
+     */
     public function shouldShowSubscription(string $key): bool
     {
         if (empty($this->filterPreset)) {
@@ -55,12 +68,18 @@ class ListSubscriptions extends Component
         }
     }
 
+    /**
+     * Save the current list of subscriptions.
+     */
     public function save(): void
     {
         $this->saveSubscriptions($this->subscriptions);
         Flux::toast('Subscriptions Saved', variant: 'success');
     }
 
+    /**
+     * Create a new subscription with provided details.
+     */
     public function create(): void
     {
         try {
@@ -78,11 +97,19 @@ class ListSubscriptions extends Component
         }
     }
 
+    /**
+     * Prepare to remove a subscription by setting its key.
+     *
+     * @param  string  $key  The key of the subscription to be removed.
+     */
     public function prepareRemove(string $key): void
     {
         $this->removing = $key;
     }
 
+    /**
+     * Remove the specified subscription from the list.
+     */
     public function removeSubscription(): void
     {
         if (empty($this->removing)) {
@@ -97,6 +124,12 @@ class ListSubscriptions extends Component
         Flux::modal('delete-subscription')->close();
     }
 
+    /**
+     * Get the number of episodes for a given subscription key.
+     *
+     * @param  string  $key  The key associated with the subscription to check.
+     * @return int The count of episodes.
+     */
     public function getNumberOfEpisodes(string $key): int
     {
         $directory = $this->getDirectoryForKey($key, $this->subscriptions);
@@ -119,6 +152,12 @@ class ListSubscriptions extends Component
         );
     }
 
+    /**
+     * Count the number of episodes in a given directory recursively.
+     *
+     * @param  string  $directory  The path to the directory containing episodes.
+     * @return int The count of episodes found.
+     */
     private function countEpisodesInDirectory(string $directory): int
     {
         $count = 0;
@@ -137,7 +176,9 @@ class ListSubscriptions extends Component
     }
 
     /**
-     * @return string[]
+     * Get the list of video file extensions supported by the system.
+     *
+     * @return string[] An array of video file extensions.
      */
     private function getVideoExtensions(): array
     {
